@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { getAllTodos } = require("../controllers/todos");
+const { getAllTodos, getAddTodo } = require("../controllers/todos");
 
-router.route("/").get(getAllTodos);
+router.get("/", getAllTodos);
+
+router.get("/add-todo", getAddTodo);
 
 module.exports = router;

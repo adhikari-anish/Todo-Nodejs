@@ -1,0 +1,28 @@
+<%- include('../includes/head.ejs') %>
+  </head>
+
+  <body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+
+      <form class="max-w-[700px] mx-auto shadow shadow-lg rounded p-4 mb-5">
+        <div class="mb-4">
+          <label for="name" class="block mb-2">Name</label>
+          <input type="text" id="name" class="border block w-full p-2 rounded-sm">
+        </div>
+        <div class="mb-4">
+          <label for="description" class="block mb-2">Description</label>
+          <textarea type="text" id="description" class="border block w-full p-2 rounded-sm"></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="date-time" class="block mb-2">Date and Time</label>
+          <input type="datetime-local" id="date-time" class="border block w-full p-2 rounded-sm">
+        </div>
+        <div class="mb-4">
+          <button class="border rounded-sm bg-blue border-blue px-3 py-1 mr-1 hover:bg-white">Add Todo</button>
+        </div>
+      </form>
+      
+
+    </main>
+  <%- include('../includes/end.ejs') %>

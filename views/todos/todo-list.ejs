@@ -1,1 +1,54 @@
-<h1>all todos</h1>
+<%- include('../includes/head.ejs') %>
+  </head>
+
+  <body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+
+      <div class="max-w-[700px] mx-auto flex p-2 bg-teal  mb-5">
+        <div class="flex">
+          <div class="flex items-center mr-3">
+            <input type="checkbox" id="done">
+            <label for="done" class="ml-1">Done</label>
+          </div>
+          <div class="flex items-center">
+            <input type="checkbox" id="upcoming">
+            <label for="upcoming" class="ml-1">Upcoming</label>
+          </div>
+        </div>
+      </div>
+      
+      <ul class="max-w-[700px] mx-auto">
+        <li class="shadow shadow-lg rounded p-4 mb-5">
+          <h2 class="font-semibold mb-3">Todo Title</h2>
+          <p class="mb-3">Todo Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum consequuntur ducimus eligendi iste culpa minima natus saepe exercitationem laboriosam, at ratione facere vero sed? Ipsa necessitatibus debitis dicta inventore quia ut ea numquam, autem quos? Alias obcaecati autem inventore ut? Magnam numquam adipisci velit pariatur quos magni ipsa accusantium nemo.</p>
+          <p class="italic">2022/05/23 <span>5:55 pm</span></p>
+          <div class="mt-3">
+            <button class="border rounded-sm border-blue px-3 py-1 mr-1">Edit</button>
+            <button class="border rounded-sm border-pink px-3 py-1 mr-1">Delete</button>
+            <button class="border rounded-sm border-teal px-3 py-1 mr-1">Mark as done</button>
+          </div>
+        </li>
+        <li class="shadow shadow-lg rounded p-4 mb-5">
+          <h2 class="font-semibold mb-3">Todo Title</h2>
+          <p class="mb-3">Todo Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum consequuntur ducimus eligendi iste culpa minima natus saepe exercitationem laboriosam, at ratione facere vero sed? Ipsa necessitatibus debitis dicta inventore quia ut ea numquam, autem quos? Alias obcaecati autem inventore ut? Magnam numquam adipisci velit pariatur quos magni ipsa accusantium nemo.</p>
+          <p class="italic">2022/05/23 <span>5:55 pm</span></p>
+          <div class="mt-3">
+            <button class="border rounded-sm border-blue px-3 py-1 mr-1">Edit</button>
+            <button class="border rounded-sm border-pink px-3 py-1 mr-1">Delete</button>
+            <button class="border rounded-sm border-teal px-3 py-1 mr-1">Mark as done</button>
+          </div>
+        </li>
+        <li class="shadow shadow-lg rounded p-4 mb-5">
+          <h2 class="font-semibold mb-3">Todo Title</h2>
+          <p class="mb-3">Todo Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum consequuntur ducimus eligendi iste culpa minima natus saepe exercitationem laboriosam, at ratione facere vero sed? Ipsa necessitatibus debitis dicta inventore quia ut ea numquam, autem quos? Alias obcaecati autem inventore ut? Magnam numquam adipisci velit pariatur quos magni ipsa accusantium nemo.</p>
+          <p class="italic">2022/05/23 <span>5:55 pm</span></p>
+          <div class="mt-3">
+            <button class="border rounded-sm border-blue px-3 py-1 mr-1">Edit</button>
+            <button class="border rounded-sm border-pink px-3 py-1 mr-1">Delete</button>
+            <button class="border rounded-sm border-teal px-3 py-1 mr-1">Mark as done</button>
+          </div>
+        </li>
+      </ul>
+    </main>
+  <%- include('../includes/end.ejs') %>
