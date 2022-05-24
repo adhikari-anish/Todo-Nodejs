@@ -5,7 +5,11 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "create:todos:table": "node -e 'require(\"./db/migration.js\").createTodosTable()'",
+    "drop:todos:table": "node -e 'require(\"./db/migration.js\").dropTodosTable()'",
+    "seed:todos:table": "node -e 'require(\"./db/seeders.js\").seedTodosTable()'",
+    "undo:seed:todos:table": "node -e 'require(\"./db/seeders.js\").undoSeedTodosTable()'"
   },
   "repository": {
     "type": "git",
@@ -28,12 +32,12 @@
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "mysql2": "^2.3.3",
-    "nodemon": "^2.0.16"
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "nodemon": "^2.0.16"
   }
 }
