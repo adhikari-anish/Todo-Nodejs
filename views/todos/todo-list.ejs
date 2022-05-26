@@ -17,38 +17,30 @@
           </div>
         </div>
       </div>
-      
-      <ul class="max-w-[700px] mx-auto">
-        <li class="shadow shadow-lg rounded p-4 mb-5">
-          <h2 class="font-semibold mb-3">Todo Title</h2>
-          <p class="mb-3">Todo Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum consequuntur ducimus eligendi iste culpa minima natus saepe exercitationem laboriosam, at ratione facere vero sed? Ipsa necessitatibus debitis dicta inventore quia ut ea numquam, autem quos? Alias obcaecati autem inventore ut? Magnam numquam adipisci velit pariatur quos magni ipsa accusantium nemo.</p>
-          <p class="italic">2022/05/23 <span>5:55 pm</span></p>
-          <div class="mt-3">
-            <button class="border rounded-sm border-blue px-3 py-1 mr-1">Edit</button>
-            <button class="border rounded-sm border-pink px-3 py-1 mr-1">Delete</button>
-            <button class="border rounded-sm border-teal px-3 py-1 mr-1">Mark as done</button>
-          </div>
-        </li>
-        <li class="shadow shadow-lg rounded p-4 mb-5">
-          <h2 class="font-semibold mb-3">Todo Title</h2>
-          <p class="mb-3">Todo Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum consequuntur ducimus eligendi iste culpa minima natus saepe exercitationem laboriosam, at ratione facere vero sed? Ipsa necessitatibus debitis dicta inventore quia ut ea numquam, autem quos? Alias obcaecati autem inventore ut? Magnam numquam adipisci velit pariatur quos magni ipsa accusantium nemo.</p>
-          <p class="italic">2022/05/23 <span>5:55 pm</span></p>
-          <div class="mt-3">
-            <button class="border rounded-sm border-blue px-3 py-1 mr-1">Edit</button>
-            <button class="border rounded-sm border-pink px-3 py-1 mr-1">Delete</button>
-            <button class="border rounded-sm border-teal px-3 py-1 mr-1">Mark as done</button>
-          </div>
-        </li>
-        <li class="shadow shadow-lg rounded p-4 mb-5">
-          <h2 class="font-semibold mb-3">Todo Title</h2>
-          <p class="mb-3">Todo Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum consequuntur ducimus eligendi iste culpa minima natus saepe exercitationem laboriosam, at ratione facere vero sed? Ipsa necessitatibus debitis dicta inventore quia ut ea numquam, autem quos? Alias obcaecati autem inventore ut? Magnam numquam adipisci velit pariatur quos magni ipsa accusantium nemo.</p>
-          <p class="italic">2022/05/23 <span>5:55 pm</span></p>
-          <div class="mt-3">
-            <button class="border rounded-sm border-blue px-3 py-1 mr-1">Edit</button>
-            <button class="border rounded-sm border-pink px-3 py-1 mr-1">Delete</button>
-            <button class="border rounded-sm border-teal px-3 py-1 mr-1">Mark as done</button>
-          </div>
-        </li>
-      </ul>
+      <% if ( todos.length > 0 ) { %>
+        <ul class="max-w-[700px] mx-auto">
+          <% for (let todo of todos ) { %>
+            <li class="shadow shadow-lg rounded p-4 mb-5">
+              <div class="flex">
+                <input type="checkbox" class="w-5 h-5 block mr-3" >
+                <div>
+                  <h2 class="font-semibold mb-3"><%= todo.name %></h2>
+                  <p class="mb-3"><%= todo.description %></p>
+                  <p class="italic text-sm text-gray"><%= todo.date_time %></p>
+                  <div class="mt-3">
+                    <a class="border rounded-sm border-blue px-3 py-1 mr-1" href="/todos/edit-todo/<%= todo.id %>?edit=true">Edit</a>
+                    <button class="border rounded-sm border-pink px-3 py-1 mr-1">Delete</button>
+                  </div>
+                </div>
+              </div>
+             
+            </li>
+          <% } %>
+
+
+        </ul>
+      <% } else { %>
+        <h1>No Todos Yet!!</h1>
+      <% } %>
     </main>
   <%- include('../includes/end.ejs') %>

@@ -15,11 +15,11 @@ module.exports = class Todo {
   }
 
   static fetchAll() {
-    return db.query("SELECT * FROM todos");
+    return db.execute("SELECT * FROM todos");
   }
 
   static findById(id) {
-    return db.query("SELECT * FROM todos WHERE todos.id = ?", [id]);
+    return db.execute("SELECT * FROM todos WHERE todos.id = ?", [id]);
   }
 
   static deleteById(id) {

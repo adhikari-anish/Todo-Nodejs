@@ -1,9 +1,12 @@
 const Todo = require("../models/todo");
 
-const getAllTodos = (req, res) => {
+const getAllTodos = async (req, res) => {
+  const todos = await Todo.fetchAll();
+  // console.log(todos[0]);
   res.render("todos/todo-list", {
-    pageTitle: "Todo List",
+    pageTitle: "Todos",
     path: "/todos",
+    todos: todos[0],
   });
 };
 
@@ -27,8 +30,31 @@ const postAddTodo = async (req, res) => {
   }
 };
 
+const getEditTodo = async (req, res) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect("/");
+  }
+
+  const todoId = req.params.todoId;
+  console.log("here");
+  const [todo] = await Todo.findById(todoId);
+  console.log(todo);
+
+  if (todo.length === 0) {
+    return res.redirect("/");
+  }
+  res.render("todos/todo-form", {
+    pageTitle: "Edit Todo",
+    path: "/todos/edit-todo",
+    editing: editMode,
+    todo: todo,
+  });
+};
+
 module.exports = {
   getAllTodos,
   getAddTodo,
   postAddTodo,
+  getEditTodo,
 };

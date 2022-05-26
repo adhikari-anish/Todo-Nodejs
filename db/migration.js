@@ -17,6 +17,7 @@ module.exports.createTodosTable = async function () {
       id INT NOT NULL AUTO_INCREMENT,
       name VARCHAR(50) NOT NULL,
       description VARCHAR(250) NOT NULL,
+      completed BOOLEAN NOT NULL DEFAULT false,
       date_time DATETIME NOT NULL,
       PRIMARY KEY (id)
     )`);

@@ -3,10 +3,10 @@ const db = require("../util/database");
 module.exports.seedTodosTable = async function () {
   try {
     await db.query(
-      `INSERT INTO todos (id, name, description, date_time) VALUES 
-        (1, 'Complete the landing page', 'Implement the design of the landing page of the todo project', '2022-05-24T22:16'),
-        (2, 'Do homework', 'Solve problems related to algebra...', '2022-05-24T03:16'),
-        (3, 'Wash dishes', 'Wash dishes and clean kitchen', '2022-05-23T03:16')
+      `INSERT INTO todos (id, name, description, completed, date_time) VALUES 
+        (1, 'Complete the landing page', 'Implement the design of the landing page of the todo project', false, '2022-05-24T22:16'),
+        (2, 'Do homework', 'Solve problems related to algebra...', true, '2022-05-24T03:16'),
+        (3, 'Wash dishes', 'Wash dishes and clean kitchen', false, '2022-05-23T03:16')
       `
     );
     console.log("Todos inserted successfully");
