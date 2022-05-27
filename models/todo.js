@@ -1,9 +1,11 @@
 const db = require("../util/database");
 
 module.exports = class Todo {
-  constructor(name, description, dateTime) {
+  constructor(id, name, description, completed, dateTime) {
+    this.id = id;
     this.name = name;
     this.description = description;
+    this.completed = completed;
     this.dateTime = dateTime;
   }
 
@@ -27,9 +29,9 @@ module.exports = class Todo {
   }
 
   updateById(id) {
-    return db.query(
-      "UPDATE todos SET name = ?, description = ?, date_time = ? WHERE id = ?",
-      [this.name, this.description, this.dateTime, id]
+    return db.execute(
+      "UPDATE todos SET name = ?, description = ?, completed = ?, date_time = ? WHERE id = ?",
+      [this.name, this.description, this.completed, this.dateTime, id]
     );
   }
 };

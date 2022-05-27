@@ -6,30 +6,28 @@
     <main>
 
       <div class="max-w-[700px] mx-auto flex p-2 bg-teal  mb-5">
-        <div class="flex">
-          <div class="flex items-center mr-3">
-            <input type="checkbox" id="done">
-            <label for="done" class="ml-1">Done</label>
-          </div>
-          <div class="flex items-center">
-            <input type="checkbox" id="upcoming">
-            <label for="upcoming" class="ml-1">Upcoming</label>
-          </div>
-        </div>
+        <span class="mr-2">Filter Todo</span>
+        <select name="" id="todo-filter">
+          <option value="done">Done</option>
+          <option value="upcomings">Upcomings</option>
+        </select>
       </div>
       <% if ( todos.length > 0 ) { %>
         <ul class="max-w-[700px] mx-auto">
           <% for (let todo of todos ) { %>
             <li class="shadow shadow-lg rounded p-4 mb-5">
               <div class="flex">
-                <input type="checkbox" class="w-5 h-5 block mr-3" >
+                <input type="checkbox" name="completed"  class="w-5 h-5 block mr-3 todo-checkbox" data-todo-id="<%= todo.id %>" <%= todo.completed === 1 ? 'checked' : '' %> >
                 <div>
                   <h2 class="font-semibold mb-3"><%= todo.name %></h2>
                   <p class="mb-3"><%= todo.description %></p>
-                  <p class="italic text-sm text-gray"><%= todo.date_time %></p>
+                  <p class="italic text-sm text-gray"><%= moment(todo.date_time).format('dddd, MMMM Do YYYY, h:mm:ss a') %></p>
                   <div class="mt-3">
-                    <a class="border rounded-sm border-blue px-3 py-1 mr-1" href="/todos/edit-todo/<%= todo.id %>?edit=true">Edit</a>
-                    <button class="border rounded-sm border-pink px-3 py-1 mr-1">Delete</button>
+                    <a class="border rounded-sm border-blue px-3 py-1 mr-1 inline-block" href="/todos/edit-todo/<%= todo.id %>?edit=true">Edit</a>
+                    <form action="/todos/delete-todo" method="POST" class="inline">
+                      <input type="hidden" name="id" value="<%= todo.id %>">
+                      <button class="border rounded-sm border-pink px-3 py-1 mr-1" type="submit">Delete</button>
+                    </form>
                   </div>
                 </div>
               </div>
