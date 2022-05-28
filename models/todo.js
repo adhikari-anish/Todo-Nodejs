@@ -1,4 +1,4 @@
-const db = require("../util/database");
+const db = require("../config/database");
 
 module.exports = class Todo {
   constructor(id, name, description, completed, dateTime) {

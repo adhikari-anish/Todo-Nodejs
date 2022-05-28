@@ -7,7 +7,7 @@ const app = express();
 
 const todos = require("./routes/todos");
 
-const apiTodos = require("./api/routes/todos");
+const apiTodos = require("./routes/api/todos");
 
 const port = process.env.PORT || 8000;
 

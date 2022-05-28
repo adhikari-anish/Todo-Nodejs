@@ -1,8 +1,9 @@
 const Todo = require("../models/todo");
+const { validationResult } = require('express-validator');
 
 const getAllTodos = async (req, res) => {
   const todos = await Todo.fetchAll();
-  // console.log(todos[0]);
+
   res.render("todos/todo-list", {
     pageTitle: "Todos",
     path: "/todos",
@@ -15,13 +16,36 @@ const getAddTodo = (req, res) => {
     pageTitle: "Add Todo",
     path: "/todos/add-todo",
     editing: false,
+    hasError: false,
+    validationErrors: []
   });
 };
 
 const postAddTodo = async (req, res) => {
   const { name, description, date_time } = req.body;
-
   const todo = new Todo(null, name, description, false, date_time);
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    let validationErrors; 
+    if (errors.array().length) {
+      validationErrors = errors.array().reduce((prev, curr) => {
+        return {...prev, [curr.param]: curr.msg}
+      }, {});
+    }
+    return res.status(422).render('todos/todo-form', {
+      pageTitle: "Add Todo",
+      path: "/todos/add-todo",
+      editing: false,
+      hasError: true,
+      todo: {
+        name,
+        description,
+        date_time
+      },
+      validationErrors: validationErrors
+    })
+  }
 
   try {
     await todo.save();
@@ -48,6 +72,7 @@ const getEditTodo = async (req, res) => {
     path: "/todos/edit-todo",
     editing: editMode,
     todo: todo[0],
+    validationErrors: []
   });
 };
 
@@ -56,6 +81,29 @@ const postEditTodo = async (req, res) => {
 
   completed = completed ? completed : false;
   const todo = new Todo(id, name, description, completed, date_time);
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    let validationErrors; 
+    if (errors.array().length) {
+      validationErrors = errors.array().reduce((prev, curr) => {
+        return {...prev, [curr.param]: curr.msg}
+      }, {});
+    }
+    return res.status(422).render('todos/todo-form', {
+      pageTitle: "Edit Todo",
+      path: "/todos/edit-todo",
+      editing: true,
+      hasError: true,
+      todo: {
+        id,
+        name,
+        description,
+        date_time
+      },
+      validationErrors: validationErrors
+    })
+  }
 
   try {
     await todo.updateById(id);

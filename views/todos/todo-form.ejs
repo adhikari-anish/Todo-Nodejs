@@ -3,31 +3,48 @@
 
   <body>
     <%- include('../includes/navigation.ejs') %>
-    <main>
+      <main class="max-w-[700px] mx-auto">
+            <form action="/todos/<% if (editing) { %>edit-todo<% } else { %>add-todo<% } %>"
+              class="shadow shadow-lg rounded p-4 mb-5" method="POST">
+              <div class="mb-4">
+                <label for="name" class="block mb-2">Name</label>
+                <input type="text" name="name" id="name"
+                  class="border block w-full p-2 rounded-sm <%= validationErrors['name'] && 'border-pink' %>"
+                  value="<% if (editing || hasError) { %><%= todo.name %><% } %>">
+                <% if (validationErrors['name']) { %> 
+                  <span class="text-pink text-sm italic"><%= validationErrors['name'] %></span>
+                <% } %>
+              </div>
 
-      <form action="/todos/<% if (editing) { %>edit-todo<% } else { %>add-todo<% } %>" class="max-w-[700px] mx-auto shadow shadow-lg rounded p-4 mb-5" method="POST">
-        <div class="mb-4">
-          <label for="name" class="block mb-2">Name</label>
-          <input type="text" name="name" id="name" class="border block w-full p-2 rounded-sm" value="<% if (editing) { %><%= todo.name %><% } %>">
-        </div>
-        <div class="mb-4">
-          <label for="description" class="block mb-2">Description</label>
-          <textarea type="text" name="description" id="description" class="border block w-full p-2 rounded-sm"><% if (editing) { %><%= todo.description %><% } %></textarea>
-        </div>
-        <div class="mb-4">
-          <label for="date-time" class="block mb-2">Date and Time</label>
-          <input type="datetime-local" name="date_time" id="date-time" class="border block w-full p-2 rounded-sm" value="<% if (editing) { %><%= moment(todo.date_time).format('YYYY-MM-DDTHH:mm:ss') %><% } %>">
-        </div>
+              <div class="mb-4">
+                <label for="description" class="block mb-2">Description</label>
+                <textarea type="text" name="description" id="description"
+                  class="border block w-full p-2 rounded-sm <%= validationErrors['description'] && 'border-pink' %>"
+                  value="<% if (editing || hasError) { %><%= todo.name %><% } %>"><% if (editing || hasError) { %><%= todo.description %><% } %></textarea>
+                  <% if (validationErrors['description']) { %> 
+                    <span class="text-pink text-sm italic"><%= validationErrors['description'] %></span>
+                  <% } %>
+              </div>
+              <div class="mb-4">
+                <label for="date-time" class="block mb-2">Date and Time</label>
+                <input type="datetime-local" name="date_time" id="date-time" class="border block w-full p-2 rounded-sm <%= validationErrors['date_time'] && 'border-pink' %>"
+                  value="<% if (editing || hasError) { %><%= moment(todo.date_time).format('YYYY-MM-DDTHH:mm:ss') %><% } %>">
+                  <% if (validationErrors['date_time']) { %> 
+                    <span class="text-pink text-sm italic"><%= validationErrors['date_time'] %></span>
+                  <% } %>
+              </div>
 
-        <% if (editing) { %>
-          <input type="hidden" value="<%= todo.id %>" name="id">
-        <% } %>
+              <% if (editing) { %>
+                <input type="hidden" value="<%= todo.id %>" name="id">
+                <% } %>
 
-        <div class="mb-4">
-          <button type="submit" class="border rounded-sm bg-blue border-blue px-3 py-1 mr-1 hover:bg-white"><% if (editing) { %> Edit Todo <% } else { %> Add Todo <% } %></button>
-        </div>
-      </form>
-      
+                  <div class="mb-4">
+                    <button type="submit" class="border rounded-sm bg-blue border-blue px-3 py-1 mr-1 hover:bg-white">
+                      <% if (editing) { %> Edit Todo <% } else { %> Add Todo <% } %>
+                    </button>
+                  </div>
+            </form>
 
-    </main>
-  <%- include('../includes/end.ejs') %>
+
+      </main>
+      <%- include('../includes/end.ejs') %>

@@ -1,27 +1,20 @@
 const Todo = require("../../models/todo");
 
 const getTodos = async (req, res) => {
-  console.log(req.query);
   let {filter} = req.query;
   const [todos] = await Todo.fetchAll();
-  console.log(todos);
   let results = []
 
   if (filter === 'done') {
     results = todos.filter(todo => todo.completed === 1);
   } else if (filter === 'upcomings') {
-    let completedTodos = todos.filter(todo => todo.completed === 1);
+    let completedTodos = todos.filter(todo => todo.completed === 0);
     results = completedTodos.sort(function (a,b) {
-      return new Date(a.date) - new Date(b.date);
+      return new Date(b.date_time) - new Date(a.date_time);
     });
   } else {
     results = todos;
   }
-
-
-  // if (filter === 'upcoming') {
-
-  // }
 
   return res.status(200).json({message: 'success', data: results});
 }
