@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const path = require('path');
+const errorHandlerMiddleware = require('./middleware/error-handler');
+const notFoundMiddleware = require('./middleware/not-found');
 
 const app = express();
 
@@ -30,5 +32,9 @@ app.get("/", (req, res) => {
 app.use("/todos/", todos);
 
 app.use("/api/v1/todos", apiTodos);
+
+app.use(notFoundMiddleware);
+
+app.use(errorHandlerMiddleware);
 
 app.listen(port, console.log(`server listening on port ${port}`));

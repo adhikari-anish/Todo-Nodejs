@@ -1,14 +1,19 @@
 const Todo = require("../models/todo");
 const { validationResult } = require('express-validator');
 
-const getAllTodos = async (req, res) => {
-  const todos = await Todo.fetchAll();
+const getAllTodos = async (req, res, next) => {
+  try {
+    const todos = await Todo.fetchAll();
 
-  res.render("todos/todo-list", {
-    pageTitle: "Todos",
-    path: "/todos",
-    todos: todos[0],
-  });
+    res.render("todos/todo-list", {
+      pageTitle: "Todos",
+      path: "/todos",
+      todos: todos[0],
+    });
+  } catch (error) {
+    return next(error);
+  }
+
 };
 
 const getAddTodo = (req, res) => {
@@ -21,7 +26,7 @@ const getAddTodo = (req, res) => {
   });
 };
 
-const postAddTodo = async (req, res) => {
+const postAddTodo = async (req, res, next) => {
   const { name, description, date_time } = req.body;
   const todo = new Todo(null, name, description, false, date_time);
   const errors = validationResult(req);
@@ -52,31 +57,38 @@ const postAddTodo = async (req, res) => {
     res.redirect("/todos/");
   } catch (error) {
     console.log(error);
+    return next(error);
   }
 };
 
-const getEditTodo = async (req, res) => {
+const getEditTodo = async (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
     return res.redirect("/");
   }
 
   const todoId = req.params.todoId;
-  const [todo] = await Todo.findById(todoId);
 
-  if (todo.length === 0) {
-    return res.redirect("/");
+  try {
+    const [todo] = await Todo.findById(todoId);
+
+    if (todo.length === 0) {
+      return res.redirect("/");
+    }
+    res.render("todos/todo-form", {
+      pageTitle: "Edit Todo",
+      path: "/todos/edit-todo",
+      editing: editMode,
+      todo: todo[0],
+      validationErrors: []
+    });
+  } catch (error) {
+    return next(error);
   }
-  res.render("todos/todo-form", {
-    pageTitle: "Edit Todo",
-    path: "/todos/edit-todo",
-    editing: editMode,
-    todo: todo[0],
-    validationErrors: []
-  });
+
 };
 
-const postEditTodo = async (req, res) => {
+const postEditTodo = async (req, res, next) => {
   let { id, name, description, completed, date_time } = req.body;
 
   completed = completed ? completed : false;
@@ -110,10 +122,11 @@ const postEditTodo = async (req, res) => {
     res.redirect("/todos/");
   } catch (error) {
     console.log(error);
+    return next(error);
   }
 }
 
-const postDeleteTodo = async (req, res) => {
+const postDeleteTodo = async (req, res, next) => {
   const { id } = req.body;
 
   try {
@@ -121,6 +134,7 @@ const postDeleteTodo = async (req, res) => {
     res.redirect("/todos/");
   } catch (error) {
     console.log(error);
+    return next(error);
   }
 }
 

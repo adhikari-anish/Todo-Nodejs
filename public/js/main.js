@@ -82,7 +82,6 @@ todoFilter.addEventListener('change', async (e) => {
     todoList.innerHTML = allTodos;
     addEventToTodoCheckboxes();
 
-    // if ()
   } catch (error) {
     console.log(error);
   }
