@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const path = require('path');
+require('dotenv').config();
+
 const errorHandlerMiddleware = require('./middleware/error-handler');
 const notFoundMiddleware = require('./middleware/not-found');
 
