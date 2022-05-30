@@ -10,8 +10,6 @@ function addEventToTodoCheckboxes () {
       let data = todoCheckbox.checked ? { completed: true } : { completed : false };
       let todoId = todoCheckbox.dataset.todoId;
   
-      console.log(JSON.stringify(data));    
-  
       fetch(`/api/v1/todos/${todoId}`, {
         method: 'PATCH',
         body: JSON.stringify(data),
@@ -43,7 +41,6 @@ todoFilter.addEventListener('change', async (e) => {
       method: 'GET'
     })
     const {data: todos} = await response.json();
-    console.log(todos);
     
     if (todos.length < 1) {
       todoList.innerHTML = `
@@ -85,7 +82,6 @@ todoFilter.addEventListener('change', async (e) => {
   } catch (error) {
     console.log(error);
   }
-
 
 })
 

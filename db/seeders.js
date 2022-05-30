@@ -1,4 +1,4 @@
-const db = require("../util/database");
+const db = require("../config/database");
 
 module.exports.seedTodosTable = async function () {
   try {
